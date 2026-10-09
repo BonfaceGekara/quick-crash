@@ -1,8 +1,18 @@
 'use client';
 
+const STORAGE_KEY = 'crash_sound_enabled';
+
 class SoundManager {
     private ctx: AudioContext | null = null;
     private enabled = true;
+    private initialized = false;
+
+    constructor() {
+        if (typeof window !== 'undefined') {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            this.enabled = stored === null ? true : stored === 'true';
+        }
+    }
 
     private init() {
         if (typeof window === 'undefined') return;
@@ -13,11 +23,23 @@ class SoundManager {
                     .webkitAudioContext;
             this.ctx = new Ctx();
         }
+        // Some browsers require resume after user gesture
+        if (this.ctx.state === 'suspended') {
+            this.ctx.resume().catch(() => { });
+        }
     }
 
     setEnabled(v: boolean) {
         this.enabled = v;
+        if (typeof window !== 'undefined') {
+            localStorage.setItem(STORAGE_KEY, v ? 'true' : 'false');
+        }
+        if (v) {
+            // Prime the audio context on user gesture
+            this.init();
+        }
     }
+
     isEnabled() {
         return this.enabled;
     }
@@ -36,21 +58,32 @@ class SoundManager {
         osc.type = type;
         osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
         g.gain.setValueAtTime(gain, this.ctx.currentTime);
-        g.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + duration);
+        g.gain.exponentialRampToValueAtTime(
+            0.0001,
+            this.ctx.currentTime + duration
+        );
         osc.connect(g);
         g.connect(this.ctx.destination);
         osc.start();
         osc.stop(this.ctx.currentTime + duration);
     }
 
-    countdownTick() { this.tone(880, 0.05, 'square', 0.05); }
-    roundStart() { this.tone(440, 0.15, 'triangle', 0.15); }
+    countdownTick() {
+        this.tone(880, 0.05, 'square', 0.05);
+    }
+    roundStart() {
+        this.tone(440, 0.15, 'triangle', 0.15);
+    }
     cashout() {
         this.tone(660, 0.1, 'triangle', 0.2);
         setTimeout(() => this.tone(990, 0.15, 'triangle', 0.2), 80);
     }
-    crash() { this.tone(120, 0.5, 'sawtooth', 0.25); }
-    betPlaced() { this.tone(520, 0.06, 'sine', 0.1); }
+    crash() {
+        this.tone(120, 0.5, 'sawtooth', 0.25);
+    }
+    betPlaced() {
+        this.tone(520, 0.06, 'sine', 0.1);
+    }
 }
 
 export const sound = new SoundManager();

@@ -11,6 +11,9 @@ import Modal from '@/components/Modal';
 import { formatMoneyShort } from '@/lib/game/format';
 import { wallet } from '@/lib/wallet/mockWallet';
 
+import { sound } from '@/lib/audio/sound';
+import { useRef } from 'react';
+
 export default function GamePage() {
     const {
         state,
@@ -26,6 +29,31 @@ export default function GamePage() {
     const [toasts, setToasts] = useState<ToastData[]>([]);
     const [depositOpen, setDepositOpen] = useState(false);
     const [depositAmount, setDepositAmount] = useState('500');
+
+    // Countdown ticks
+    const lastTickRef = useRef<number>(99);
+    useEffect(() => {
+        if (!state) return;
+        if (state.phase !== 'waiting') return;
+        const whole = Math.ceil(state.countdown);
+        if (whole !== lastTickRef.current && whole > 0 && whole <= 5) {
+            sound.countdownTick();
+            lastTickRef.current = whole;
+        }
+    }, [state]);
+
+    // Round start / crash sounds
+    const lastPhaseRef = useRef<string>('');
+    useEffect(() => {
+        if (!state) return;
+        if (lastPhaseRef.current === 'waiting' && state.phase === 'running') {
+            sound.roundStart();
+        }
+        if (lastPhaseRef.current === 'running' && state.phase === 'crashed') {
+            sound.crash();
+        }
+        lastPhaseRef.current = state.phase;
+    }, [state]);
 
     function pushToast(type: ToastData['type'], message: string) {
         const id = Math.random().toString(36).slice(2);
@@ -87,8 +115,8 @@ export default function GamePage() {
                                 <>
                                     <div
                                         className={`text-7xl font-black drop-shadow-lg tabular-nums ${state.phase === 'running'
-                                                ? 'text-green-400'
-                                                : 'text-gray-500'
+                                            ? 'text-green-400'
+                                            : 'text-gray-500'
                                             }`}
                                     >
                                         {state.multiplier.toFixed(2)}x
