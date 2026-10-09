@@ -83,7 +83,7 @@ export default function AccountPage() {
                         value={formatMoney(player.stats.netProfit)}
                         accent={player.stats.netProfit >= 0 ? 'green' : 'red'}
                     />
-                    <Stat label="Session" value={`${elapsedMin}m`} />
+                    <Stat label="Session" value={`${elapsedMin} minutes`} />
                 </div>
 
                 <div className="bg-[#141414] rounded-xl border border-gray-900 overflow-hidden divide-y divide-gray-900">
@@ -102,8 +102,12 @@ export default function AccountPage() {
                             </button>
                         }
                     />
-                    <Row label="Support" />
-                    <Row label="Terms & Privacy" />
+                    <Link href="/support">
+                        <Row label="Support" />
+                    </Link>
+                    <Link href="/terms">
+                        <Row label="Terms & Privacy" />
+                    </Link>
                 </div>
 
                 <button
@@ -113,10 +117,6 @@ export default function AccountPage() {
                     Sign Out
                 </button>
 
-                <p className="text-[10px] text-gray-600 text-center leading-relaxed">
-                    Demo build. Real-money features require a valid Kenyan gambling
-                    license.
-                </p>
             </div>
         </AppShell>
     );
