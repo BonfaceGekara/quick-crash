@@ -95,10 +95,9 @@ export default function GamePage() {
                 balance={player.balance}
                 connected={connected}
                 onBalanceClick={() => setDepositOpen(true)}
-                fullHeight
             >
-                <div className="flex flex-col h-full">
-                    <section className="relative flex-1 min-h-0 bg-[#0a0a0a]">
+                <div className="flex flex-col">
+                    <section className="relative w-full h-[45vh] min-h-[280px] max-h-[500px] bg-[#0a0a0a]">
                         <CrashGraph state={state} player={player} />
 
                         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
