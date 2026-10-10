@@ -20,7 +20,7 @@ const QUICK = [50, 100, 500];
 export default function BetPanel(props: Props) {
     return (
         <div className="w-full font-sans text-white select-none">
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <BetColumn {...props} slot={0} bet={props.player.bets[0]} />
                 <BetColumn {...props} slot={1} bet={props.player.bets[1]} />
             </div>
@@ -126,8 +126,8 @@ function BetColumn({
                         onSetAutoCashout(slot, !bet.autoCashout.enabled, n);
                     }}
                     className={`w-9 rounded-t-md text-[9px] font-bold transition-colors ${bet.autoCashout.enabled
-                            ? 'bg-[#1a7d3c] text-white'
-                            : 'bg-[#2c2c2c] text-gray-500'
+                        ? 'bg-[#1a7d3c] text-white'
+                        : 'bg-[#2c2c2c] text-gray-500'
                         }`}
                 >
                     {bet.autoCashout.enabled ? 'ON' : 'OFF'}
@@ -199,16 +199,16 @@ function BetColumn({
                 onClick={() => onBetAction(slot)}
                 disabled={mode === 'cashed' || mode === 'lost' || mode === 'wait'}
                 className={`mt-1 w-full py-3 rounded-md font-bold text-[15px] transition-colors active:scale-[0.99] ${mode === 'bet'
-                        ? 'bg-[#1a7d3c] hover:bg-[#219a4a]'
-                        : mode === 'cancel'
-                            ? 'bg-[#c62828] hover:bg-[#d63a3a]'
-                            : mode === 'cashout'
-                                ? 'bg-[#f7a614] text-black animate-pulse'
-                                : mode === 'cashed'
-                                    ? 'bg-[#14512a] text-green-300'
-                                    : mode === 'lost'
-                                        ? 'bg-[#3a0d0d] text-red-300'
-                                        : 'bg-[#2c2c2c] text-gray-500'
+                    ? 'bg-[#1a7d3c] hover:bg-[#219a4a]'
+                    : mode === 'cancel'
+                        ? 'bg-[#c62828] hover:bg-[#d63a3a]'
+                        : mode === 'cashout'
+                            ? 'bg-[#f7a614] text-black animate-pulse'
+                            : mode === 'cashed'
+                                ? 'bg-[#14512a] text-green-300'
+                                : mode === 'lost'
+                                    ? 'bg-[#3a0d0d] text-red-300'
+                                    : 'bg-[#2c2c2c] text-gray-500'
                     }`}
             >
                 {mode === 'bet' && (
