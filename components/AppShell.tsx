@@ -20,9 +20,9 @@ export default function AppShell({
     fullHeight = false,
 }: Props) {
     return (
-        <div className="min-h-[100dvh] bg-[#0a0a0a] flex justify-center safe-top">
+        <div className="min-h-dvh bg-[#0a0a0a] flex justify-center safe-top">
             <div
-                className={`w-full max-w-md flex flex-col ${fullHeight ? 'h-[100dvh]' : 'min-h-[100dvh]'
+                className={`w-full max-w-md flex flex-col ${fullHeight ? 'h-dvh' : 'min-h-dvh'
                     }`}
             >
                 <TopBar

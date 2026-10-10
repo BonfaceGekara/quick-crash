@@ -7,7 +7,7 @@ import VerifyPanel from '@/components/VerifyPanel';
 export default function FairPage() {
     const { player, state, connected } = useCrashGame();
 
-    if (!player || !state) return <div className="min-h-[100dvh] bg-[#0a0a0a]" />;
+    if (!player || !state) return <div className="min-h-dvh bg-[#0a0a0a]" />;
 
     return (
         <AppShell balance={player.balance} connected={connected}>

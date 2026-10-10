@@ -44,7 +44,7 @@ export default function WalletPage() {
         setWithdrawOpen(false);
     }
 
-    if (!player) return <div className="min-h-[100dvh] bg-[#0a0a0a]" />;
+    if (!player) return <div className="min-h-dvh bg-[#0a0a0a]" />;
 
     const lockedBalance = player.bets.reduce(
         (s, b) =>

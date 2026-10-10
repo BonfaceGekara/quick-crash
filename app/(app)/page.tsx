@@ -78,7 +78,7 @@ export default function GamePage() {
 
     if (!state || !player) {
         return (
-            <div className="min-h-[100dvh] flex flex-col items-center justify-center text-white gap-2">
+            <div className="min-h-dvh flex flex-col items-center justify-center text-white gap-2">
                 <div className="text-2xl font-bold">Connecting…</div>
                 <div className="text-sm text-gray-500">
                     {connected ? 'Syncing' : 'Waiting for server'}
@@ -97,7 +97,7 @@ export default function GamePage() {
                 onBalanceClick={() => setDepositOpen(true)}
             >
                 <div className="flex flex-col">
-                    <section className="relative w-full h-[45vh] min-h-[280px] max-h-[500px] bg-[#0a0a0a]">
+                    <section className="relative w-full h-[45vh] min-h-70 max-h-125 bg-[#0a0a0a]">
                         <CrashGraph state={state} player={player} />
 
                         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">

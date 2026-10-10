@@ -18,7 +18,7 @@ export default function HistoryStrip({ history, count = 20 }: Props) {
                 history.slice(0, count).map((h) => (
                     <span
                         key={h.roundId}
-                        className={`flex-shrink-0 px-2 py-0.5 rounded text-[10px] font-bold tabular-nums ${h.crashPoint < 2
+                        className={`shrink-0 px-2 py-0.5 rounded text-[10px] font-bold tabular-nums ${h.crashPoint < 2
                                 ? 'bg-[#3a0d0d] text-red-400'
                                 : h.crashPoint < 10
                                     ? 'bg-[#3a290d] text-yellow-400'

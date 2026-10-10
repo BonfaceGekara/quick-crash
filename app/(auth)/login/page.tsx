@@ -28,7 +28,7 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="min-h-[100dvh] bg-[#0a0a0a] flex flex-col">
+        <div className="min-h-dvh bg-[#0a0a0a] flex flex-col">
             <div className="flex-1 flex items-center justify-center p-6">
                 <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-5">
                     <div className="text-center mb-4">

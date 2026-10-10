@@ -7,7 +7,7 @@ import { useCrashGame } from '@/lib/game/useCrashGame';
 export default function TermsPage() {
     const { player, connected } = useCrashGame();
 
-    if (!player) return <div className="min-h-[100dvh] bg-[#0a0a0a]" />;
+    if (!player) return <div className="min-h-dvh bg-[#0a0a0a]" />;
 
     return (
         <AppShell balance={player.balance} connected={connected}>
