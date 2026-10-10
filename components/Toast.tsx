@@ -33,7 +33,7 @@ function ToastItem({
     useEffect(() => {
         const timer = setTimeout(() => onDismiss(toast.id), 3000);
         return () => clearTimeout(timer);
-    }, [toast.id, onDismiss]);
+    }, [toast.id]);
 
     const bg =
         toast.type === 'success'
