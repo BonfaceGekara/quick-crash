@@ -9,7 +9,6 @@ interface Props {
     balance: number;
     connected: boolean;
     onBalanceClick?: () => void;
-    fullHeight?: boolean;
 }
 
 export default function AppShell({
@@ -17,25 +16,23 @@ export default function AppShell({
     balance,
     connected,
     onBalanceClick,
-    fullHeight = false,
 }: Props) {
     return (
-        <div className="min-h-dvh bg-[#0a0a0a] flex justify-center safe-top">
-            <div
-                className={`w-full max-w-md flex flex-col ${fullHeight ? 'h-dvh' : 'min-h-dvh'
-                    }`}
-            >
+        <div className="h-dvh bg-[#0a0a0a] flex justify-center overflow-hidden">
+            <div className="w-full max-w-md flex flex-col h-full safe-top">
+                {/* Top bar — fixed */}
                 <TopBar
                     balance={balance}
                     connected={connected}
                     onBalanceClick={onBalanceClick}
                 />
-                <main
-                    className={`flex-1 min-h-0 ${fullHeight ? 'overflow-hidden' : 'overflow-y-auto'
-                        }`}
-                >
+
+                {/* Scrollable middle */}
+                <main className="flex-1 min-h-0 overflow-y-auto overscroll-contain no-scrollbar">
                     {children}
                 </main>
+
+                {/* Bottom nav — fixed */}
                 <BottomNav />
             </div>
         </div>
